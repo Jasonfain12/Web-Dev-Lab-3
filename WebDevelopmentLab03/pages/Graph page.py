@@ -5,12 +5,12 @@ import os   # The 'os' module helps with file system operations.
 import matplotlib.pyplot as plt
 # PAGE CONFIGURATION
 st.set_page_config(
-    page_title="Visualizations",
-    page_icon="📈",
+    page_title="Character Analyzation",
+    page_icon="👨",
 )
 
 # PAGE TITLE AND INFORMATION
-st.title("Exercise Data Visualizations 📈")
+st.title("Rick and Morty Character Profiles")
 
 
 # DATA LOADING
