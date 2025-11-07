@@ -21,10 +21,9 @@ st.subheader("Team Member 1, Team Member 2")
 st.write("""
 Welcome to our Streamlit Web Development Lab03 app! You can navigate between the pages using the sidebar to the left. The following pages are:
 
-1.
-2.
-3.
-4.
+1. Character Analysis
+2. Character Battler
+3. Rick and Morty ChatBot
 
 """)
 
