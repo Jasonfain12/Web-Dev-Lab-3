@@ -21,10 +21,10 @@ st.subheader("Daniel Galante, Jason Fain")
 st.write("""
 Welcome to our Streamlit Web Development Lab03 app! You can navigate between the pages using the sidebar to the left. The following pages are:
 
-1.
-2.
-3.
-4.
+1. Home Page
+2. Character Analyzation
+3. Character Battler
+4. Rick and Morty AI
 
 """)
 
