@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import json # The 'json' module is needed to work with JSON files.
 import os   # The 'os' module helps with file system operations.
-import matplotlib.pyplot as plt
+
 # PAGE CONFIGURATION
 st.set_page_config(
     page_title="Visualizations",
