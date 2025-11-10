@@ -51,3 +51,35 @@ selected_species = st.multiselect(
 
 filtered_counts = speciesCounts[speciesCounts.index.isin(selected_species)]
 st.bar_chart(filtered_counts)
+
+
+
+
+st.divider()
+st.title("Rick and Morty Character Viewer")
+
+#species dropdown
+species_options = sorted(df["species"].unique())
+selected_species = st.selectbox("Select a species:", options=species_options)
+
+#filter characters by selected species
+filtered_df = df[df["species"] == selected_species]
+
+#name dropdown (based on selected species)
+name_options = sorted(filtered_df["name"].unique())
+selected_name = st.selectbox("Select a character:", options=name_options)
+
+#find character info
+character = filtered_df[filtered_df["name"] == selected_name].iloc[0]
+
+#display info
+st.subheader(character["name"])
+st.image(character["image"], width=250)
+
+#display other info about character
+st.write(f"**Status:** {character['status']}")
+st.write(f"**Gender:** {character['gender']}")
+st.write(f"**Origin:** {character['origin']['name']}")
+st.write(f"**Location:** {character['location']['name']}")
+st.write(f"**Species:** {character['species']}")
+
