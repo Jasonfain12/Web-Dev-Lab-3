@@ -5,11 +5,9 @@ import os
 
 st.title("Interdimensional Travel Brochure Generator")
 
-API_KEY = st.secrets.get("GEMINI_API_KEY", "")
-if not API_KEY:
-    st.error("Gemini API key missing. Add it to Streamlit secrets.")
+key=st.secrets["key"]
 
-client = genai.Client(api_key=API_KEY)
+genai.configure(api_key=key)
 
 @st.cache_data
 def fetch_locations():
