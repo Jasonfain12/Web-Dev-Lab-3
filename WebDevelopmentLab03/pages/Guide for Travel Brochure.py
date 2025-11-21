@@ -1,11 +1,11 @@
 import streamlit as st
-import requests
 import google.generativeai as genai
-st.write("Generative AI package version:", genai.__version__)
+import requests
+
 st.title("Interdimensional Travel Brochure Generator")
 
 key = st.secrets["key"]
-genai.configure(api_key=key)
+client = genai.Client(api_key=key)  # Use Client object to authenticate
 
 @st.cache_data
 def fetch_locations():
@@ -66,13 +66,12 @@ Length: 2–4 paragraphs.
     return prompt
 
 def generate_brochure(prompt):
-    response = genai.TextGeneration.create(
+    response = client.generate_text(
         model="models/gemini-1.5-flash",
-        prompt=prompt
+        prompt=prompt,
+        max_output_tokens=512
     )
     return response.text
-
-
 
 if st.button("Generate Travel Brochure"):
     with st.spinner("Contacting the Galactic Federation... ✨"):
