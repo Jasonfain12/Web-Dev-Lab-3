@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import google.generativeai as genai
-
+st.write("Generative AI package version:", genai.__version__)
 st.title("Interdimensional Travel Brochure Generator")
 
 key = st.secrets["key"]
