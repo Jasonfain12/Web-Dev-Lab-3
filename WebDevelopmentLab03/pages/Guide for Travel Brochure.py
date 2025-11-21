@@ -54,4 +54,38 @@ Create a travel brochure in the style of: {tone}.
 
 Location Details:
 - Name: {location['name']}
-- Type:
+- Type: {loc_type}
+- Dimension: {dimension}
+- Number of known residents: {len(residents)}
+- Sample Residents URLs: {resident_preview}
+
+The brochure should be fun, immersive, and written as if the location
+is a real tourist destination. It should:
+- Describe the environment
+- Explain cultural aspects
+- Mention safety/danger levels
+- Provide travel recommendations
+- Make references to the show when relevant
+
+Length: 2–4 paragraphs.
+"""
+    return prompt
+
+def generate_brochure(prompt):
+    response = client.generate_text(
+        model="models/gemini-1.5-flash",
+        prompt=prompt,
+        max_output_tokens=512
+    )
+    return response.text
+
+if st.button("Generate Travel Brochure"):
+    with st.spinner("Contacting the Galactic Federation... ✨"):
+        prompt = build_prompt(selected_location, tone)
+        try:
+            brochure_text = generate_brochure(prompt)
+            st.subheader(f"📍 Travel Brochure for {selected_location_name}")
+            st.write(brochure_text)
+        except Exception as e:
+            st.error(f"Error generating brochure: {e}")
+
