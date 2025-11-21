@@ -4,11 +4,13 @@ import google.generativeai as genai
 
 st.title("Interdimensional Travel Brochure Generator")
 
+for m in genai.list_models():
+    st.write(m.name, m.supported_generation_methods)
 
 # Initialize the client with your API key from Streamlit secrets
 key = st.secrets["key"]
 genai.configure(api_key=key)
-model = genai.GenerativeModel("models/gemini-pro"0
+model = genai.GenerativeModel("models/gemini-pro")
 
 
 
