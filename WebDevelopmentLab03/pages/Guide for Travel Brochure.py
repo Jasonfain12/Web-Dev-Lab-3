@@ -7,7 +7,8 @@ st.title("Interdimensional Travel Brochure Generator")
 # Initialize the client with your API key from Streamlit secrets
 key = st.secrets["key"]
 genai.configure(api_key=key)
-model = genai.GenerativeModel("gemini-pro")
+model = genai.GenerativeModel("models/gemini-1.5-flash")
+
 
 @st.cache_data
 def fetch_locations():
