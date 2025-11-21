@@ -67,8 +67,9 @@ Length: 2–4 paragraphs.
 
 def generate_brochure(prompt):
     model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate(prompt=prompt)
+    response = model.generate_text(prompt=prompt)
     return response.text
+
 
 if st.button("Generate Travel Brochure"):
     with st.spinner("Contacting the Galactic Federation... ✨"):
