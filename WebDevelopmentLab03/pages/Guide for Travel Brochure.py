@@ -5,7 +5,7 @@ import requests
 st.title("Interdimensional Travel Brochure Generator")
 
 key = st.secrets["key"]
-client = genai.Client(api_key=key)  # Use Client object to authenticate
+genai.configure(api_key=key)  
 
 @st.cache_data
 def fetch_locations():
@@ -66,12 +66,13 @@ Length: 2–4 paragraphs.
     return prompt
 
 def generate_brochure(prompt):
-    response = client.generate_text(
+    response = genai.generate_text(
         model="models/gemini-1.5-flash",
         prompt=prompt,
         max_output_tokens=512
     )
     return response.text
+
 
 if st.button("Generate Travel Brochure"):
     with st.spinner("Contacting the Galactic Federation... ✨"):
