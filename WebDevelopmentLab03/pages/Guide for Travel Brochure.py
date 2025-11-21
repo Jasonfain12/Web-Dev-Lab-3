@@ -1,13 +1,13 @@
 import streamlit as st
 import requests
-from google.genai import GenerativeModel
-import google.auth
+import google.generativeai as genai
 
 st.title("Interdimensional Travel Brochure Generator")
 
-# Initialize the model with your API key from Streamlit secrets
+# Initialize the client with your API key from Streamlit secrets
 key = st.secrets["key"]
-model = GenerativeModel(model_name="gemini-1.5-flash", api_key=key)
+genai.configure(api_key=key)
+model = genai.GenerativeModel("gemini-pro")
 
 @st.cache_data
 def fetch_locations():
