@@ -66,8 +66,8 @@ Length: 2–4 paragraphs.
     return prompt
 
 def generate_brochure(prompt):
-    response = genai.generate_text(
-        model="gemini-1.5-flash",
+    response = genai.TextGeneration.create(
+        model="models/gemini-1.5-flash",
         prompt=prompt
     )
     return response.text
