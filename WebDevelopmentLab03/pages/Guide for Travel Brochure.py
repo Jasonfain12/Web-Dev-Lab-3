@@ -1,12 +1,13 @@
 import streamlit as st
 import requests
-import google.generativeai as genai
+from google.genai import GenerativeModel
+import google.auth
 
 st.title("Interdimensional Travel Brochure Generator")
 
-# Initialize the client with your API key from Streamlit secrets
+# Initialize the model with your API key from Streamlit secrets
 key = st.secrets["key"]
-client = genai.Client(api_key=key)
+model = GenerativeModel(model_name="gemini-1.5-flash", api_key=key)
 
 @st.cache_data
 def fetch_locations():
@@ -72,11 +73,7 @@ Length: 2–4 paragraphs.
     return prompt
 
 def generate_brochure(prompt):
-    response = client.generate_text(
-        model="models/gemini-1.5-flash",
-        prompt=prompt,
-        max_output_tokens=512
-    )
+    response = model.generate_content(prompt)
     return response.text
 
 if st.button("Generate Travel Brochure"):
@@ -88,4 +85,3 @@ if st.button("Generate Travel Brochure"):
             st.write(brochure_text)
         except Exception as e:
             st.error(f"Error generating brochure: {e}")
-
