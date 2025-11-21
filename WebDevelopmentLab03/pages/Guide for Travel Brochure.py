@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
-from google import genai
+import google.generativeai as genai
+import os
 
 st.title("Interdimensional Travel Brochure Generator")
 
