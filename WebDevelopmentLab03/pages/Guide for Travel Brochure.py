@@ -5,7 +5,7 @@ import google.generativeai as genai
 st.title("Interdimensional Travel Brochure Generator")
 
 key = st.secrets["key"]
-genai.configure(api_key=key)
+client = genai.Client(api_key=key)
 
 @st.cache_data
 def fetch_locations():
@@ -66,8 +66,10 @@ Length: 2–4 paragraphs.
     return prompt
 
 def generate_brochure(prompt):
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate(text=prompt)
+    response = client.generate_text(
+        model="gemini-1.5-flash",
+        prompt=prompt,
+    )
     return response.text
 
 if st.button("Generate Travel Brochure"):
