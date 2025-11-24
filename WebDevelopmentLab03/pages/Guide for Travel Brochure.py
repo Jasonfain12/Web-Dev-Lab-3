@@ -10,7 +10,7 @@ key = st.secrets["key"]
 genai.configure(api_key=key)
 
 # Use the correct model
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 @st.cache_data
