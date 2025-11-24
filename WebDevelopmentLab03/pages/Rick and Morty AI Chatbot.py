@@ -27,28 +27,20 @@ api_data = fetch_api_data(category)
 if show_raw_api:
     st.write(api_data)
 
-# Initialize chat history if it doesn't exist
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Display chat history
 for role, message in st.session_state.chat_history:
     with st.chat_message(role):
         st.write(message)
 
-# User input
 user_msg = st.chat_input("Ask the chatbot something!")
 
 if user_msg:
-    # Show user message
     with st.chat_message("user"):
         st.write(user_msg)
     st.session_state.chat_history.append(("user", user_msg))
 
-    # Build conversation messages as plain text prompt (since generate_content expects prompt string)
-    # We’ll combine system instructions and chat history into one prompt string.
-
-    # Construct system prompt with API data
     system_prompt = (
         "You are a friendly, helpful chatbot specialized in using "
         "data from the Rick and Morty API to answer questions. "
@@ -57,15 +49,12 @@ if user_msg:
         "Conversation history:\n"
     )
 
-    # Add conversation history
     conversation_history_text = ""
     for role, text in st.session_state.chat_history:
         conversation_history_text += f"{role.capitalize()}: {text}\n"
 
-    # Add current user message
     conversation_history_text += f"User: {user_msg}\nAssistant:"
 
-    # Final prompt
     prompt = system_prompt + conversation_history_text
 
     try:
@@ -74,7 +63,6 @@ if user_msg:
     except Exception as e:
         bot_reply = f"Sorry — Gemini encountered an error. Try asking again.\n\n{e}"
 
-    # Show assistant message
     with st.chat_message("assistant", avatar="🤖"):
         st.write(bot_reply)
 
