@@ -80,11 +80,11 @@ def generate_brochure(prompt):
 
 
 if st.button("Generate Travel Brochure"):
-    with st.spinner("Contacting the Galactic Federation... ✨"):
+    with st.spinner("Contacting the Galactic Federation..."):
         try:
             prompt = build_prompt(selected_location, tone)
             brochure_text = generate_brochure(prompt)
-            st.subheader(f"📍 Travel Brochure for {selected_location_name}")
+            st.subheader(f" Travel Brochure for {selected_location_name}")
             st.write(brochure_text)
         except Exception as e:
             st.error(f"Error generating brochure: {e}")
