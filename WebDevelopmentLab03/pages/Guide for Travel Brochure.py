@@ -3,7 +3,7 @@ import requests
 import google.generativeai as genai
 
 st.title("Interdimensional Travel Brochure Generator")
-
+st.write(ListModels)
 key = st.secrets["key"]
 genai.configure(api_key=key)
 model = genai.GenerativeModel("gemini-2.0-pro")
