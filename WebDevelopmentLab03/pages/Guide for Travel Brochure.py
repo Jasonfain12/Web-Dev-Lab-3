@@ -1,14 +1,6 @@
 import streamlit as st
 import requests
-from google import genai as genai
-
-# The client gets the API key from the environment variable `GEMINI_API_KEY`.
-client = genai.Client()
-
-response = client.models.generate_content(
-    model="gemini-2.5-flash", contents="Explain how AI works in a few words"
-)
-st.write(response.text)
+import google.genai as genai
 
 st.title("Interdimensional Travel Brochure Generator")
 
@@ -20,7 +12,7 @@ genai.configure(api_key=key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 
-
+@st.cache_data
 def fetch_locations():
     url = "https://rickandmortyapi.com/api/location"
     all_locations = []
