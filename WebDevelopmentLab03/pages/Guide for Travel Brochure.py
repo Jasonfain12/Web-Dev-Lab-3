@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from google import genai
+from google import genai as genai
 
 # The client gets the API key from the environment variable `GEMINI_API_KEY`.
 client = genai.Client()
