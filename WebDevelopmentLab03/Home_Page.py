@@ -23,7 +23,7 @@ Welcome to our Streamlit Web Development Lab03 app! You can navigate between the
 
 1. Home Page
 2. Character Analysis
-3. Character Battler
+3. Guide for Travel Brochure
 4. Rick and Morty AI ChatBot
 
 """)
