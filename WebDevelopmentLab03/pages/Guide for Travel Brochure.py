@@ -3,9 +3,9 @@ import requests
 import google.generativeai as genai
 
 st.title("Interdimensional Travel Brochure Generator")
-models = client.models.list()
+models = genai.list_models()
 
-st.subheader("Gemini Models:")
+st.subheader("Available Models:")
 for m in models:
     st.write(m.name)
 key = st.secrets["key"]
