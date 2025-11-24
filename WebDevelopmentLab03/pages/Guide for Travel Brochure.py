@@ -3,18 +3,16 @@ import requests
 import google.generativeai as genai
 
 st.title("Interdimensional Travel Brochure Generator")
-models = genai.list_models()
 
-st.subheader("Available Models:")
-for m in models:
-    st.write(m.name)
+# Load API key from Streamlit secrets
 key = st.secrets["key"]
 genai.configure(api_key=key)
-model = genai.GenerativeModel("gemini-2.0-pro")
+
+# Use the correct model
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 
-@st.cache_data
 def fetch_locations():
     url = "https://rickandmortyapi.com/api/location"
     all_locations = []
@@ -24,6 +22,7 @@ def fetch_locations():
         all_locations.extend(data["results"])
         url = data.get("info", {}).get("next")
     return all_locations
+
 
 locations = fetch_locations()
 location_names = [loc["name"] for loc in locations]
@@ -47,6 +46,7 @@ def get_location_data(name):
     return None
 
 selected_location = get_location_data(selected_location_name)
+
 
 def build_prompt(location, tone):
     dimension = location.get("dimension", "Unknown Dimension")
@@ -77,14 +77,16 @@ Length: 2–4 paragraphs.
 """
     return prompt
 
+
 def generate_brochure(prompt):
     response = model.generate_content(prompt)
     return response.text
 
+
 if st.button("Generate Travel Brochure"):
     with st.spinner("Contacting the Galactic Federation... ✨"):
-        prompt = build_prompt(selected_location, tone)
         try:
+            prompt = build_prompt(selected_location, tone)
             brochure_text = generate_brochure(prompt)
             st.subheader(f"📍 Travel Brochure for {selected_location_name}")
             st.write(brochure_text)
