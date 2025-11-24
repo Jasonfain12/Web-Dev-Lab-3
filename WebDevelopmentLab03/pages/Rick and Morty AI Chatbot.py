@@ -10,6 +10,10 @@ genai.configure(api_key=key)
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
+# Let user select category and toggle raw API display
+category = st.selectbox("Select API category", ["Character", "Location", "Episode"])
+show_raw_api = st.checkbox("Show raw API response")
+
 def fetch_api_data(category):
     base = "https://rickandmortyapi.com/api/"
     res = requests.get(base + category.lower())
@@ -23,53 +27,54 @@ api_data = fetch_api_data(category)
 if show_raw_api:
     st.write(api_data)
 
-# Display Chat History
+# Initialize chat history if it doesn't exist
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
 
+# Display chat history
 for role, message in st.session_state.chat_history:
     with st.chat_message(role):
         st.write(message)
 
-# Chat Input
+# User input
 user_msg = st.chat_input("Ask the chatbot something!")
 
 if user_msg:
-
-    # Display user's message
+    # Show user message
     with st.chat_message("user"):
         st.write(user_msg)
     st.session_state.chat_history.append(("user", user_msg))
 
-    # Build LLM Messages
-    messages = [
-        {
-            "role": "system",
-            "content": (
-                "You are a friendly, helpful chatbot specialized in using "
-                "data from the Rick and Morty API to answer questions. "
-                "Always respond clearly and accurately based on the data."
-            )
-        },
-        {
-            "role": "system",
-            "content": f"Here is the relevant API data for category '{category}': {api_data}"
-        }
-    ]
+    # Build conversation messages as plain text prompt (since generate_content expects prompt string)
+    # We’ll combine system instructions and chat history into one prompt string.
+
+    # Construct system prompt with API data
+    system_prompt = (
+        "You are a friendly, helpful chatbot specialized in using "
+        "data from the Rick and Morty API to answer questions. "
+        "Always respond clearly and accurately based on the data.\n\n"
+        f"Here is the relevant API data for category '{category}': {api_data}\n\n"
+        "Conversation history:\n"
+    )
 
     # Add conversation history
+    conversation_history_text = ""
     for role, text in st.session_state.chat_history:
-        messages.append({"role": role, "content": text})
+        conversation_history_text += f"{role.capitalize()}: {text}\n"
 
-    # Gemini Response with Try/Except
+    # Add current user message
+    conversation_history_text += f"User: {user_msg}\nAssistant:"
+
+    # Final prompt
+    prompt = system_prompt + conversation_history_text
+
     try:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=messages
-        )
+        response = model.generate_content(prompt)
         bot_reply = response.text
-    except Exception:
-        bot_reply = "Sorry — Gemini encountered an error. Try asking again."
+    except Exception as e:
+        bot_reply = f"Sorry — Gemini encountered an error. Try asking again.\n\n{e}"
 
-    # Display bot response
+    # Show assistant message
     with st.chat_message("assistant", avatar="🤖"):
         st.write(bot_reply)
 
