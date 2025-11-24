@@ -5,9 +5,10 @@ import os
 
 st.title("Rick and Morty Episode Expert Chatbot!")
 
-genai.configure(api_key = st.secrets["key"])
-client = genai.Client()
+key = st.secrets["key"]
+genai.configure(api_key=key)
 
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 def fetch_api_data(category):
     base = "https://rickandmortyapi.com/api/"
@@ -61,7 +62,7 @@ if user_msg:
     # Gemini Response with Try/Except
     try:
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.5-flash",
             contents=messages
         )
         bot_reply = response.text
