@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import google.generativeai as genai
+import os
 
 st.title("Rick and Morty Episode Expert Chatbot!")
 
