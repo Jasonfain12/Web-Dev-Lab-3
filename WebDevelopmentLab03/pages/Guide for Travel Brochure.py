@@ -5,15 +5,11 @@ import os
 
 st.title("Interdimensional Travel Brochure Generator")
 
-# Load API key from Streamlit secrets
 key = st.secrets["key"]
 genai.configure(api_key=key)
 
-# Use the correct model
 model = genai.GenerativeModel("gemini-2.5-flash")
 
-
-@st.cache_data
 def fetch_locations():
     url = "https://rickandmortyapi.com/api/location"
     all_locations = []
@@ -24,7 +20,6 @@ def fetch_locations():
         url = data.get("info", {}).get("next")
     return all_locations
 
-
 locations = fetch_locations()
 location_names = [loc["name"] for loc in locations]
 
@@ -34,9 +29,9 @@ tone = st.selectbox(
     "Choose Brochure Tone",
     [
         "Friendly Travel Guide",
-        "Rick-style Sarcastic Warning",
-        "Horror Survival Guide",
-        "Professional Tourism Bureau",
+        "Rick-style Warning",
+        "Survival Guide",
+        "Professional Brochure",
     ],
 )
 
