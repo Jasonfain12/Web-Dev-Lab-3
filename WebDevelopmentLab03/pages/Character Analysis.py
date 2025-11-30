@@ -72,11 +72,9 @@ selected_name = st.selectbox("Select a character:", options=name_options)
 #find character info
 character = filtered_df[filtered_df["name"] == selected_name].iloc[0]
 
-#display info
 st.subheader(character["name"])
 st.image(character["image"], width=250)
 
-#display other info about character
 st.write(f"**Status:** {character['status']}")
 st.write(f"**Gender:** {character['gender']}")
 st.write(f"**Origin:** {character['origin']['name']}")
