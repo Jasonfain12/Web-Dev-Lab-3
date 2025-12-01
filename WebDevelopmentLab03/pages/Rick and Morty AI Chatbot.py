@@ -12,6 +12,7 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 
 st.write("Choose a category to chat about!")
 category = st.selectbox("Select API category", ["Character", "Location", "Episode"])
+show_raw = st.checkbox("Show raw API data")
 
 def fetch_api_data(category):
     base = "https://rickandmortyapi.com/api/"
