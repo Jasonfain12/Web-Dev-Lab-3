@@ -118,8 +118,7 @@ with tab2:
                 prompt = build_prompt(selected_location, tone)
                 
                 
-                with st.expander("🔍 Show Prompt (Debug/Optional)"):
-                    st.code(prompt)
+                
 
                 brochure_text = generate_brochure(prompt)
 
