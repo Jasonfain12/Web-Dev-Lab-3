@@ -74,8 +74,7 @@ if user_msg:
 
     
 
-    with prompt_tabs[1]:
-        st.write(conversation_history_text)
+    
 
     
     try:
