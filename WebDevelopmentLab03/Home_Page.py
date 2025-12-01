@@ -62,14 +62,5 @@ Uses the Rick and Morty API + Gemini to answer your questions.
     """)
 
 
-with st.expander("About This Lab (For Demo Purposes)"):
-    st.write("""
-This lab demonstrates:
-- Streamlit multi-page navigation  
-- Containers, columns, expanders, and tabs  
-- Using external APIs  
-- Generating text with Gemini  
-- Session state + chat UI  
-- Ethical considerations for AI apps  
-""")
+
 
