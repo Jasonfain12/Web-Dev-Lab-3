@@ -5,38 +5,59 @@ import os
 
 st.title("Rick and Morty Episode Expert Chatbot!")
 
-key = st.secrets["key"]
-genai.configure(api_key=key)
 
-model = genai.GenerativeModel("gemini-2.5-flash")
+with st.container():
+    key = st.secrets["key"]
+    genai.configure(api_key=key)
+    model = genai.GenerativeModel("gemini-2.5-flash")
 
-st.write("Choose a category to chat about!")
-category = st.selectbox("Select API category", ["Character", "Location", "Episode"])
+    st.write("Choose a category to chat about!")
 
-def fetch_api_data(category):
-    base = "https://rickandmortyapi.com/api/"
-    res = requests.get(base + category.lower())
-    try:
-        return res.json()
-    except:
-        return {"error": "API returned invalid response"}
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        category = st.selectbox("Select API category", ["Character", "Location", "Episode"])
 
-api_data = fetch_api_data(category)
+    
+    def fetch_api_data(category):
+        base = "https://rickandmortyapi.com/api/"
+        res = requests.get(base + category.lower())
+        try:
+            return res.json()
+        except:
+            return {"error": "API returned invalid response"}
+
+    with col2:
+        st.write("Fetching API data...")
+    api_data = fetch_api_data(category)
 
 
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+with st.expander("Show Raw API Data (For Debugging / Demo Explanation)"):
+    st.json(api_data)
 
-for role, message in st.session_state.chat_history:
-    with st.chat_message(role):
-        st.write(message)
 
-user_msg = st.chat_input("Ask the chatbot something!")
+with st.container():
+    st.subheader("Chat History")
+
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
+
+    for role, message in st.session_state.chat_history:
+        with st.chat_message(role):
+            st.write(message)
+
+
+with st.container():
+    user_msg = st.chat_input("Ask the chatbot something!")
+
 
 if user_msg:
     with st.chat_message("user"):
         st.write(user_msg)
     st.session_state.chat_history.append(("user", user_msg))
+
+   
+    prompt_tabs = st.tabs(["Prompt", "Conversation History"])
 
     system_prompt = (
         "You are a friendly, helpful chatbot specialized in using "
@@ -50,10 +71,15 @@ if user_msg:
     for role, text in st.session_state.chat_history:
         conversation_history_text += f"{role.capitalize()}: {text}\n"
 
-    conversation_history_text += f"User: {user_msg}\nAssistant:"
-
     prompt = system_prompt + conversation_history_text
 
+    with prompt_tabs[0]:
+        st.write(prompt)
+
+    with prompt_tabs[1]:
+        st.write(conversation_history_text)
+
+    
     try:
         response = model.generate_content(prompt)
         bot_reply = response.text
@@ -64,3 +90,4 @@ if user_msg:
         st.write(bot_reply)
 
     st.session_state.chat_history.append(("assistant", bot_reply))
+
