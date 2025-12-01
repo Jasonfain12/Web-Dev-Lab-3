@@ -72,8 +72,7 @@ if user_msg:
 
     prompt = system_prompt + conversation_history_text
 
-    with prompt_tabs[0]:
-        st.write(prompt)
+    
 
     with prompt_tabs[1]:
         st.write(conversation_history_text)
