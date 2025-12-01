@@ -10,9 +10,8 @@ genai.configure(api_key=key)
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
-# Let user select category and toggle raw API display
+st.write("Choose a category to chat about!")
 category = st.selectbox("Select API category", ["Character", "Location", "Episode"])
-show_raw_api = st.checkbox("Show raw API response")
 
 def fetch_api_data(category):
     base = "https://rickandmortyapi.com/api/"
