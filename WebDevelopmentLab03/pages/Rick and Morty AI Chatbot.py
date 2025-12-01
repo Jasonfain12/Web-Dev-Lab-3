@@ -12,7 +12,6 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 
 st.write("Choose a category to chat about!")
 category = st.selectbox("Select API category", ["Character", "Location", "Episode"])
-show_raw = st.checkbox("Show raw API data")
 
 def fetch_api_data(category):
     base = "https://rickandmortyapi.com/api/"
@@ -24,8 +23,6 @@ def fetch_api_data(category):
 
 api_data = fetch_api_data(category)
 
-if show_raw_api:
-    st.write(api_data)
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
