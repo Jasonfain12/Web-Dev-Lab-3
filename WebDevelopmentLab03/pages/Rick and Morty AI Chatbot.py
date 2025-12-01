@@ -56,7 +56,7 @@ if user_msg:
     st.session_state.chat_history.append(("user", user_msg))
 
    
-    prompt_tabs = st.tabs(["Prompt", "Conversation History"])
+    prompt_tabs = st.tabs(["Prompt"])
 
     system_prompt = (
         "You are a friendly, helpful chatbot specialized in using "
