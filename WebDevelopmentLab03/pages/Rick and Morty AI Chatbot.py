@@ -32,8 +32,7 @@ with st.container():
     api_data = fetch_api_data(category)
 
 
-with st.expander("Show Raw API Data (For Debugging / Demo Explanation)"):
-    st.json(api_data)
+
 
 
 with st.container():
