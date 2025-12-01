@@ -60,12 +60,7 @@ with tab1:
         )
 
     
-    with st.expander("📦 Show Raw Location JSON (Optional)"):
-        for loc in locations:
-            if loc["name"] == selected_location_name:
-                st.json(loc)
-                break
-
+    
 
 
 def get_location_data(name):
