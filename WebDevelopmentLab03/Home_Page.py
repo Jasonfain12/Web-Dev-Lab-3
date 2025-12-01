@@ -56,8 +56,7 @@ with tab3:
 Chat with an AI that specializes in:
 - Episodes  
 - Locations  
-- Characters  
-- Interdimensional lore  
+- Characters    
 Uses the Rick and Morty API + Gemini to answer your questions.  
     """)
 
